@@ -1,20 +1,19 @@
-
-
 class Solution {
 public:
-    vector<int> twoSum(std::vector<int>& nums, int target) {
-    vector<int> newnum(2, -1);
-        int n = nums.size();
-
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (i != j && nums[i] + nums[j] == target) {
-                    newnum[0] = i;
-                    newnum[1] = j;
-                    return newnum;
-                }
-            }
+    vector<int> twoSum(vector<int>& nums, int target) {
+    unordered_map<int, int> mpp;
+    int index_1=0;
+    int index_2=0;
+    for (int i = 0; i < nums.size(); i++) {
+        int num =nums[i];
+        int moreNeeded = target - num;
+        if (mpp.find(moreNeeded) != mpp.end()) {
+            index_1=mpp[moreNeeded];
+            index_2=i;
+            return {mpp[moreNeeded],i};
         }
-        return newnum;
+        mpp[num] = i;
+    }
+    return {index_1,index_2};
     }
 };
